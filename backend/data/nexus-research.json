@@ -1,0 +1,293 @@
+{
+  "repository": {
+    "id": "nexus-research",
+    "branch": "main",
+    "fileCount": 11,
+    "commitCount": 7,
+    "agentCount": 4,
+    "nodeCount": 17,
+    "lastIndexed": "2026-08-24T17:30:00Z"
+  },
+  "nodes": [
+    {
+      "id": "research-agent",
+      "label": "ResearchAgent",
+      "type": "agent",
+      "memoryType": "semantic",
+      "path": "agents/research.py",
+      "description": "Orchestrates research tasks using LangGraph multi-agent execution pipeline.",
+      "metadata": { "language": "Python", "lines": "284", "status": "active" }
+    },
+    {
+      "id": "literature-agent",
+      "label": "LiteratureAgent",
+      "type": "agent",
+      "memoryType": "semantic",
+      "path": "agents/literature.py",
+      "description": "Retrieves and summarizes academic literature from vector storage.",
+      "metadata": { "language": "Python", "lines": "156", "status": "active" }
+    },
+    {
+      "id": "hypothesis-agent",
+      "label": "HypothesisAgent",
+      "type": "agent",
+      "memoryType": "semantic",
+      "path": "agents/hypothesis.py",
+      "description": "Generates and validates research hypotheses using semantic knowledge.",
+      "metadata": { "language": "Python", "lines": "201", "status": "active" }
+    },
+    {
+      "id": "reviewer-agent",
+      "label": "ReviewerAgent",
+      "type": "agent",
+      "memoryType": "semantic",
+      "path": "agents/reviewer.py",
+      "description": "Reviews and critiques generated research state independently before output.",
+      "metadata": { "language": "Python", "lines": "178", "added": "Aug 18" }
+    },
+    {
+      "id": "episodic-memory",
+      "label": "EpisodicMemory",
+      "type": "class",
+      "memoryType": "episodic",
+      "path": "memory/episodic.py",
+      "description": "Records and retrieves episodic events such as commits, refactors, and design decisions.",
+      "metadata": { "language": "Python", "lines": "312" }
+    },
+    {
+      "id": "semantic-memory",
+      "label": "SemanticMemory",
+      "type": "class",
+      "memoryType": "semantic",
+      "path": "memory/semantic.py",
+      "description": "Stores structured code facts, structural AST entities, and system relationships.",
+      "metadata": { "language": "Python", "lines": "289" }
+    },
+    {
+      "id": "consolidation",
+      "label": "MemoryConsolidator",
+      "type": "class",
+      "memoryType": "episodic",
+      "path": "memory/consolidation.py",
+      "description": "Consolidates raw episodic activity traces into structured semantic facts.",
+      "metadata": { "language": "Python", "lines": "143" }
+    },
+    {
+      "id": "vector-store",
+      "label": "QdrantVectorStore",
+      "type": "class",
+      "memoryType": "semantic",
+      "path": "retrieval/vector_store.py",
+      "description": "Primary Qdrant vector database store for similarity searches and metadata filtering.",
+      "metadata": { "language": "Python", "lines": "198", "replaces": "ChromaDB" }
+    },
+    {
+      "id": "chromadb",
+      "label": "ChromaDB",
+      "type": "database",
+      "memoryType": "temporal",
+      "description": "Deprecated legacy vector store used prior to Qdrant migration on Aug 14.",
+      "metadata": { "status": "deprecated", "removed": "Aug 14" }
+    },
+    {
+      "id": "qdrant",
+      "label": "QdrantCluster",
+      "type": "database",
+      "memoryType": "semantic",
+      "description": "Active production vector database supporting filtered vector retrieval.",
+      "metadata": { "status": "active", "nodes": "3" }
+    },
+    {
+      "id": "hybrid-retriever",
+      "label": "HybridRetriever",
+      "type": "class",
+      "memoryType": "semantic",
+      "path": "retrieval/hybrid.py",
+      "description": "Combines dense vector search with sparse BM25 graph traversal.",
+      "metadata": { "language": "Python", "lines": "220" }
+    },
+    {
+      "id": "langgraph-core",
+      "label": "LangGraph",
+      "type": "dependency",
+      "memoryType": "semantic",
+      "description": "Stateful multi-agent workflow framework managing cycle transitions.",
+      "metadata": { "version": "0.2.14" }
+    },
+    {
+      "id": "research-state",
+      "label": "ResearchState",
+      "type": "concept",
+      "memoryType": "semantic",
+      "path": "states/research_state.py",
+      "description": "Shared state schema passed between agents during graph execution cycles.",
+      "metadata": { "language": "Python", "lines": "85" }
+    },
+    {
+      "id": "commit-a8f2c",
+      "label": "commit a8f2c1d",
+      "type": "commit",
+      "memoryType": "episodic",
+      "description": "Migrate vector store from ChromaDB to Qdrant for metadata filtering scale.",
+      "metadata": { "hash": "a8f2c1d", "author": "dev-core", "date": "2026-08-14" }
+    },
+    {
+      "id": "commit-f3e9a",
+      "label": "commit f3e9a4b",
+      "type": "commit",
+      "memoryType": "episodic",
+      "description": "Add ReviewerAgent to evaluate research state outputs independently.",
+      "metadata": { "hash": "f3e9a4b", "author": "agent-team", "date": "2026-08-18" }
+    },
+    {
+      "id": "commit-7b1c3",
+      "label": "commit 7b1c3e0",
+      "type": "commit",
+      "memoryType": "episodic",
+      "description": "Initial LangGraph multi-agent architecture setup with ChromaDB store.",
+      "metadata": { "hash": "7b1c3e0", "author": "arch-lead", "date": "2026-08-10" }
+    },
+    {
+      "id": "commit-3d4e8",
+      "label": "commit 3d4e8f1",
+      "type": "commit",
+      "memoryType": "episodic",
+      "description": "Optimize graph retrieval performance for semantic relationship extraction.",
+      "metadata": { "hash": "3d4e8f1", "author": "dev-core", "date": "2026-08-15" }
+    }
+  ],
+  "edges": [
+    { "id": "e1", "source": "research-agent", "target": "literature-agent", "label": "delegates", "type": "calls" },
+    { "id": "e2", "source": "research-agent", "target": "hypothesis-agent", "label": "delegates", "type": "calls" },
+    { "id": "e3", "source": "research-agent", "target": "reviewer-agent", "label": "reviews via", "type": "calls" },
+    { "id": "e4", "source": "literature-agent", "target": "hybrid-retriever", "label": "uses", "type": "uses" },
+    { "id": "e5", "source": "hybrid-retriever", "target": "vector-store", "label": "queries", "type": "reads" },
+    { "id": "e6", "source": "vector-store", "target": "qdrant", "label": "connects", "type": "uses" },
+    { "id": "e7", "source": "vector-store", "target": "chromadb", "label": "replaced", "type": "replaced" },
+    { "id": "e8", "source": "research-agent", "target": "langgraph-core", "label": "built on", "type": "imports" },
+    { "id": "e9", "source": "research-agent", "target": "research-state", "label": "mutates", "type": "updates" },
+    { "id": "e10", "source": "reviewer-agent", "target": "research-state", "label": "validates", "type": "reads" },
+    { "id": "e11", "source": "episodic-memory", "target": "commit-a8f2c", "label": "records", "type": "records" },
+    { "id": "e12", "source": "episodic-memory", "target": "commit-f3e9a", "label": "records", "type": "records" },
+    { "id": "e13", "source": "consolidation", "target": "semantic-memory", "label": "writes", "type": "updates" },
+    { "id": "e14", "source": "commit-a8f2c", "target": "vector-store", "label": "modified", "type": "updates" },
+    { "id": "e15", "source": "commit-f3e9a", "target": "reviewer-agent", "label": "added", "type": "records" }
+  ],
+  "timeline": [
+    {
+      "id": "evt-4",
+      "date": "AUG 18",
+      "isoDate": "2026-08-18",
+      "title": "Introduced ReviewerAgent",
+      "commit": "f3e9a4b",
+      "commitMessage": "feat(agents): add ReviewerAgent for independent evaluation loop",
+      "memoryType": "episodic",
+      "filesAffected": ["agents/reviewer.py", "agents/research.py"],
+      "reason": "Research outputs needed an independent evaluation loop to reduce hallucination before output serialization.",
+      "detail": "ReviewerAgent acts as a distinct node in the LangGraph execution flow. It inspects ResearchState and proposes revision cycles if evaluation thresholds are not met."
+    },
+    {
+      "id": "evt-3",
+      "date": "AUG 15",
+      "isoDate": "2026-08-15",
+      "title": "Optimized Graph Retrieval",
+      "commit": "3d4e8f1",
+      "commitMessage": "perf(retrieval): cache semantic relationship paths in MemoryStore",
+      "memoryType": "semantic",
+      "filesAffected": ["retrieval/hybrid.py", "memory/semantic.py"],
+      "reason": "Graph traversal latency was bottlenecking sub-second retrieval across deep memory chains.",
+      "detail": "Implemented memoized relationship path traversal and reduced multi-hop traversal time by 64%."
+    },
+    {
+      "id": "evt-2",
+      "date": "AUG 14",
+      "isoDate": "2026-08-14",
+      "title": "Migrated Vector Store to Qdrant",
+      "commit": "a8f2c1d",
+      "commitMessage": "refactor(store): replace ChromaDB backend with Qdrant cluster",
+      "memoryType": "temporal",
+      "filesAffected": ["retrieval/vector_store.py", "config/settings.py"],
+      "reason": "ChromaDB struggled with complex metadata filtering under concurrent multi-agent query load.",
+      "detail": "Replaced ChromaDB implementation with QdrantVectorStore supporting payload filtering and payload indexing."
+    },
+    {
+      "id": "evt-1",
+      "date": "AUG 10",
+      "isoDate": "2026-08-10",
+      "title": "Initial LangGraph Architecture",
+      "commit": "7b1c3e0",
+      "commitMessage": "feat(core): initial multi-agent architecture setup",
+      "memoryType": "episodic",
+      "filesAffected": ["agents/research.py", "agents/literature.py", "agents/hypothesis.py"],
+      "reason": "Foundation release establishing multi-agent research workflow.",
+      "detail": "Created foundational ResearchAgent, LiteratureAgent, and HypothesisAgent graphs utilizing ChromaDB vector retrieval."
+    }
+  ],
+  "nodeDetails": {
+    "research-agent": {
+      "id": "research-agent",
+      "type": "agent",
+      "label": "ResearchAgent",
+      "path": "agents/research.py",
+      "description": "Primary orchestrator agent executing LangGraph workflows to coordinate sub-agents during research synthesis cycles.",
+      "language": "Python",
+      "functions": ["run_pipeline", "dispatch_subagent", "evaluate_state"],
+      "classes": ["ResearchAgent"],
+      "dependsOn": ["LiteratureAgent", "HypothesisAgent", "ReviewerAgent", "LangGraph"],
+      "dependents": ["API Gateway"],
+      "recentChanges": [
+        { "date": "AUG 18", "description": "Wired ReviewerAgent into validation step", "commit": "f3e9a4b" },
+        { "date": "AUG 10", "description": "Initial agent graph creation", "commit": "7b1c3e0" }
+      ],
+      "relatedDecisions": [
+        "Use LangGraph for stateful agent cycles instead of linear chains.",
+        "Include independent review pass before finalizing research answers."
+      ],
+      "evidence": [
+        "agents/research.py:42 — class ResearchAgent(BaseAgent):",
+        "agents/research.py:108 — self.graph.add_edge('researcher', 'reviewer')"
+      ],
+      "firstSeen": "2026-08-10",
+      "lastChanged": "2026-08-18",
+      "confidence": 0.96
+    },
+    "vector-store": {
+      "id": "vector-store",
+      "type": "class",
+      "label": "QdrantVectorStore",
+      "path": "retrieval/vector_store.py",
+      "description": "Vector storage interface wrapping Qdrant client with payload filtering for code & document embeddings.",
+      "language": "Python",
+      "functions": ["search_similar", "filter_by_metadata", "upsert_embeddings"],
+      "classes": ["QdrantVectorStore"],
+      "dependsOn": ["QdrantCluster"],
+      "dependents": ["HybridRetriever"],
+      "recentChanges": [
+        { "date": "AUG 14", "description": "Replaced ChromaDB with Qdrant store", "commit": "a8f2c1d" }
+      ],
+      "relatedDecisions": [
+        "Migrate to Qdrant to support payload filtering on repository metadata tags."
+      ],
+      "evidence": [
+        "retrieval/vector_store.py:18 — class QdrantVectorStore(BaseVectorStore):",
+        "retrieval/vector_store.py:84 — client.search(collection_name='code', query_filter=...)"
+      ],
+      "firstSeen": "2026-08-14",
+      "lastChanged": "2026-08-14",
+      "confidence": 0.94
+    },
+    "commit-a8f2c": {
+      "id": "commit-a8f2c",
+      "type": "commit",
+      "label": "commit a8f2c1d",
+      "hash": "a8f2c1d9b3e047f1",
+      "author": "dev-core <dev@nexus-research.io>",
+      "timestamp": "2026-08-14T14:22:00Z",
+      "description": "Migrate vector store backend from ChromaDB to Qdrant",
+      "filesChanged": ["retrieval/vector_store.py", "config/settings.py", "tests/test_retrieval.py"],
+      "relatedDecisions": ["ChromaDB performance under high concurrent filter queries was inadequate."],
+      "evidence": ["git commit a8f2c1d9b3e047f1"],
+      "confidence": 1.0
+    }
+  }
+}

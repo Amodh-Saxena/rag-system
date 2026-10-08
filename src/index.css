@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #17202A;
+  --color-paper: #F4F1E8;
+  --color-oxide: #A84A32;
+  --color-moss: #4F6854;
+  --color-signal: #2D6A73;
+  --color-graphite: #667078;
+
+  --color-dark-bg: #121719;
+  --color-dark-surface: #1A2022;
+  --color-dark-text: #E8E4D8;
+  --color-dark-muted: #8E9998;
+
+  --font-display: "IBM Plex Serif", serif;
+  --font-body: "Inter", sans-serif;
+  --font-code: "JetBrains Mono", monospace;
+}
+
+@layer base {
+  :root {
+    --bg-color: #F4F1E8;
+    --text-color: #17202A;
+    --muted-color: #667078;
+    --border-color: #E2DFD6;
+    --surface-color: #EAE7DE;
+  }
+
+  .dark {
+    --bg-color: #121719;
+    --text-color: #E8E4D8;
+    --muted-color: #8E9998;
+    --border-color: #2D3739;
+    --surface-color: #1A2022;
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+  }
+
+  code, pre {
+    font-family: var(--font-code);
+  }
+
+  /* Range slider track + thumb */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 2px;
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #A84A32;
+    cursor: pointer;
+    border: 2px solid var(--bg-color);
+    box-shadow: 0 0 0 1px #A84A32;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #A84A32;
+    cursor: pointer;
+    border: 2px solid var(--bg-color);
+    box-shadow: 0 0 0 1px #A84A32;
+  }
+
+  /* React Flow overrides */
+  .react-flow__controls {
+    background: var(--bg-color) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .react-flow__controls-button {
+    background: var(--bg-color) !important;
+    border-bottom-color: var(--border-color) !important;
+    color: var(--muted-color) !important;
+    fill: var(--muted-color) !important;
+  }
+
+  .react-flow__controls-button:hover {
+    background: var(--surface-color) !important;
+  }
+
+  .react-flow__background {
+    background-color: var(--bg-color) !important;
+  }
+
+  .react-flow__edge-label {
+    font-family: var(--font-code) !important;
+    font-size: 9px !important;
+    fill: var(--muted-color) !important;
+  }
+
+  /* Focus visible */
+  :focus-visible {
+    outline: 2px solid #2D6A73;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Utility classes for bg/text/border using CSS vars */
+.bg-bg-color { background-color: var(--bg-color); }
+.bg-surface-color { background-color: var(--surface-color); }
+.text-text-color { color: var(--text-color); }
+.text-muted-color { color: var(--muted-color); }
+.border-border-color { border-color: var(--border-color); }
